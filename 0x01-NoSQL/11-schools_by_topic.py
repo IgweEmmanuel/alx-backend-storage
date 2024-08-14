@@ -7,7 +7,8 @@ finds documents based on attribte
 def def schools_by_topic(mongo_collection, topic):
     """
     outpus schools by topic
-    :mongo_collection
-    :topic
+    :param mongo_collection:
+    :param topic:
+    :return:
     """
-    mongo_collection.find({"name": "topic"})
+    mongo_collection.find({"topics": topic})
