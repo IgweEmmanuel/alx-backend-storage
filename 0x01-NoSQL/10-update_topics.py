@@ -13,7 +13,7 @@ def update_topics(mongo_collection, name, topics):
         topics: subject topics
     Return: list of documents
     """
-    mongo_collection.update_manu(
+    mongo_collection.update_many(
                 {"name": name},
                 {$set: {"topics": topics}}
             )
