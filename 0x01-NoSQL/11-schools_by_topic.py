@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""
-finds documents based on attribte
-"""
+'''Task 11's module.
+'''
 
 
-def def schools_by_topic(mongo_collection, topic):
-    """
-    outpus schools by topic
-    :param mongo_collection:
-    :param topic:
-    :return:
-    """
-    mongo_collection.find({"topics": topic})
+def schools_by_topic(mongo_collection, topic):
+    '''Returns the list of school having a specific topic.
+    '''
+    topic_filter = {
+        'topics': {
+            '$elemMatch': {
+                '$eq': topic,
+            },
+        },
+    }
+    return [doc for doc in mongo_collection.find(topic_filter)]
