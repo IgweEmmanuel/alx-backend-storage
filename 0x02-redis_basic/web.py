@@ -35,8 +35,8 @@ def get_page(url: str) -> str:
 
 # Usage example:
 if __name__ == "__main__":
-    url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.co.uk"
+    url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.co.uk" # noqa
     print("Fetching URL content...")
     html_content = get_page(url)
-    print(f"Content from {url}:\n{html_content[:200]}...")  # Print the first 200 characters
+    print(f"Content from {url}:\n{html_content[:200]}...")
 
