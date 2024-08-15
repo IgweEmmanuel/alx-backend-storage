@@ -32,11 +32,3 @@ def get_page(url: str) -> str:
     """
     response = requests.get(url)
     return response.text
-
-# Usage example:
-if __name__ == "__main__":
-    url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.co.uk" # noqa
-    print("Fetching URL content...")
-    html_content = get_page(url)
-    print(f"Content from {url}:\n{html_content[:200]}...")
-
