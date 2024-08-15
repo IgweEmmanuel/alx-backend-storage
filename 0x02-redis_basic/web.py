@@ -1,34 +1,39 @@
-#!/usr/bin/env python3
-""" expiring web cache module """
-
-import redis
 import requests
-from typing import Callable
-from functools import wraps
+import redis
+from typing import Optional
 
-redis = redis.Redis()
+class Cache:
+    def __init__(self):
+        # Initialize the Redis client
+        self._redis = redis.Redis()
+    
+    def get_page(self, url: str) -> Optional[str]:
+        # Track the number of times the URL is accessed
+        count_key = f"count:{url}"
+        self._redis.incr(count_key)
 
+        # Check if the content is cached
+        cached_content = self._redis.get(url)
+        if cached_content:
+            return cached_content.decode('utf-8')
 
-def wrap_requests(fn: Callable) -> Callable:
-    """ Decorator wrapper """
+        # If not cached, fetch the content from the URL
+        response = requests.get(url)
+        if response.status_code == 200:
+            # Cache the result with an expiration time of 10 seconds
+            self._redis.setex(url, 10, response.text)
+            return response.text
 
-    @wraps(fn)
-    def wrapper(url):
-        """ Wrapper for decorator guy """
-        redis.incr(f"count:{url}")
-        cached_response = redis.get(f"cached:{url}")
-        if cached_response:
-            return cached_response.decode('utf-8')
-        result = fn(url)
-        redis.setex(f"cached:{url}", 10, result)
-        return result
+        # If the request failed, return None
+        return None
 
-    return wrapper
+# Usage example:
+if __name__ == "__main__":
+    cache = Cache()
+    url = "https://example.com"
+    html_content = cache.get_page(url)
+    if html_content:
+        print(f"Content from {url}:\n{html_content[:200]}...")  # Print the first 200 characters
+    else:
+        print(f"Failed to retrieve content from {url}")
 
-
-@wrap_requests
-def get_page(url: str) -> str:
-    """get page self descriptive
-    """
-    response = requests.get(url)
-    return response.text
