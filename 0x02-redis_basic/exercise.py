@@ -41,7 +41,7 @@ class Cache:
         :param fn:
         :return:
         """
-        if !key:
+        if fn:
             return fn(self._redis.get(key))
         return self._redis.get(key)
 
