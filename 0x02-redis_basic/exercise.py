@@ -22,5 +22,5 @@ class Cache:
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """store data and returns a string"""
         randkey = str(uuid4())
-        self._redis.set(randkey, data)
+        self._redis.mset({randkey: data})
         return randkey
