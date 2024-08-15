@@ -6,6 +6,7 @@ from uuid import uuid4
 import redis
 from typing import Union
 
+UnionOfTypes = Union[str, bytes, int, float]
 
 class Cache:
     """
@@ -18,9 +19,11 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushadb()
 
-
-    def store(self, data: Union[str, bytes, int, float]) -> str:
+    
+    @count_calls
+    @call_history
+    def store(self, data: UnionOfTypes) -> str:
         """store data and returns a string"""
-        randkey = str(uuid4())
-        self._redis.mset({randkey: data})
-        return randkey
+        key = str(uuid4())
+        self._redis.mset({key: data})
+        return key
