@@ -16,10 +16,10 @@ class Cache:
     def __init__(self):
         """string to Redis"""
         self._redis = redis.Redis()
-        self._redis.flushall
+        self._redis.flushadb()
 
 
-    def store(self, data: Union[bytes, str, int, float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """store data and returns a string"""
         randkey = str(uuid4())
         self._redis.set(randkey, data)
