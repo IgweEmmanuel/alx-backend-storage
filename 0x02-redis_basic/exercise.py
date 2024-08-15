@@ -4,9 +4,10 @@ Writing strings to Redis
 """
 from uuid import uuid4
 import redis
+from typing import Union
 
 
-class Cache():
+class Cache:
     """
     This class writes to Redis
     """
@@ -15,12 +16,11 @@ class Cache():
     def __init__(self):
         """string to Redis"""
         self._redis = redis.Redis()
-        self.flushdb = self._redis.flushall
+        self._redis.flushall
 
 
-    def store(self, data) -> str:
+    def store(self, data: Union[bytes, str, int, float]) -> str:
         """store data and returns a string"""
         randkey = str(uuid4())
         self._redis.set(randkey, data)
-        res = self._redis.get(randkey)
-        return res.decode("utf-8")
+        return randkey
