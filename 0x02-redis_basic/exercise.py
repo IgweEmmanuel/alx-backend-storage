@@ -21,7 +21,11 @@ class Cache:
         self._redis.flushdb()
 
     def store(self, data: UnionOfTypes) -> str:
-        """store data and returns a string"""
+        """
+        store data and returns a string
+        :param data:
+        :return:
+        """
         key = str(uuid4())
         self._redis.mset({key: data})
         return key
