@@ -7,6 +7,7 @@ from typing import Callable
 from functools import wraps
 
 redis = redis.Redis()
+url = "http://slowwly.robertomurray.co.uk"
 
 
 def wrap_requests(fn: Callable) -> Callable:
