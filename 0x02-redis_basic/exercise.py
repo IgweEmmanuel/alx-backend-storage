@@ -17,11 +17,9 @@ class Cache:
     def __init__(self):
         """string to Redis"""
         self._redis = redis.Redis()
-        self._redis.flushadb()
+        self._redis.flushdb()
 
-    
-    @count_calls
-    @call_history
+
     def store(self, data: UnionOfTypes) -> str:
         """store data and returns a string"""
         key = str(uuid4())
