@@ -6,6 +6,7 @@ from uuid import uuid4
 import redis
 from typing import Union
 
+
 UnionOfTypes = Union[str, bytes, int, float]
 
 
