@@ -8,17 +8,16 @@ from typing import Union
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+
 class Cache:
     """
     This class writes to Redis
     """
 
-
     def __init__(self):
         """string to Redis"""
         self._redis = redis.Redis()
         self._redis.flushdb()
-
 
     def store(self, data: UnionOfTypes) -> str:
         """store data and returns a string"""
