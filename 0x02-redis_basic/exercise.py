@@ -41,14 +41,14 @@ class Cache:
         :param fn:
         :return:
         """
-        if fn:
+        if !key:
             return fn(self._redis.get(key))
         return self._redis.get(key)
 
-        def get_str(self: bytes) -> str:
+    def get_str(self: bytes) -> str:
             """return string"""
             return self.decode("utf-8")
         
-        def get_int(self: bytes) -> int:
+    def get_int(self: bytes) -> int:
             """return int"""
             return int.from_bytes(self, sys.bytesorder)
